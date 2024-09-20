@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <div>
-      <h1>App Gestçao WG Consultec</h1>
+      <h1>App Gestão WG Consultec</h1>
       <h3>Seu sistema de gestão de RH</h3>
       <div className="buttons-container">
         <Link to="/login">
