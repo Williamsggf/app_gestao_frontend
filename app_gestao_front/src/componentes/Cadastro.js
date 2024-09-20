@@ -35,7 +35,6 @@ function formatCelular(value) {
 function Cadastro() {
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
-    const [usuario, setUsuario] = useState('');
     const [cpf, setCPF] = useState('');
     const [email, setEmail] = useState('');
     const [celular, setCelular] = useState('');
@@ -63,7 +62,6 @@ function Cadastro() {
             const response = await axios.post('https://app-gestao-backend.vercel.app/auth/RTCadastro', {
                 nome,
                 sobrenome,
-                usuario,
                 cpf,
                 email,
                 celular,
@@ -115,14 +113,6 @@ function Cadastro() {
                     required
                     value={sobrenome}
                     onChange={(e) => setSobrenome(e.target.value)}
-                />
-                <input
-                    type='text'
-                    name='usuario'
-                    placeholder='Usuário'
-                    required
-                    value={usuario}
-                    onChange={(e) => setUsuario(e.target.value)}
                 />
                 <input
                     type='text'
