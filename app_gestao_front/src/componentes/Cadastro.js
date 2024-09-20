@@ -62,10 +62,10 @@ function Cadastro() {
             const response = await axios.post('https://app-gestao-backend.vercel.app/auth/RTCadastro', {
                 nome,
                 sobrenome,
-                cpf,
+                password: hashedPassword,
                 email,
+                cpf,
                 celular,
-                password: hashedPassword
             });
 
             console.log('Cadastro realizado com sucesso');
