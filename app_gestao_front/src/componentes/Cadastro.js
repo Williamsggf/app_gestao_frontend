@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import md5 from 'md5';
+import { useNavigate } from 'react-router-dom'; // Importa o useNavigate
 
 function formatCPF(value) {
     value = value.replace(/\D/g, '');
@@ -30,16 +31,15 @@ function formatCelular(value) {
 
 // Função para validar CPF
 function validarCPF(cpf) {
-    cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
+    cpf = cpf.replace(/\D/g, '');
 
     if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
-        return false; // CPF deve ter 11 dígitos e não pode ser uma sequência repetida (ex: 111.111.111-11)
+        return false;
     }
 
     let soma = 0;
     let resto;
 
-    // Verificação do primeiro dígito verificador
     for (let i = 1; i <= 9; i++) {
         soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
     }
@@ -47,7 +47,6 @@ function validarCPF(cpf) {
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(9, 10))) return false;
 
-    // Verificação do segundo dígito verificador
     soma = 0;
     for (let i = 1; i <= 10; i++) {
         soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
@@ -70,6 +69,8 @@ function Cadastro() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [userId, setUserId] = useState(null);
+
+    const navigate = useNavigate(); // Hook de navegação
 
     const handleCadastro = async (e) => {
         e.preventDefault();
@@ -104,11 +105,11 @@ function Cadastro() {
             const { id } = response.data;
             setUserId(id);
 
-            navigate('/login');
+            navigate('/login'); // Corrige o caminho de navegação
 
         } catch (error) {
             console.error('Erro ao fazer cadastro:', error);
-            setError('Erro ao fazer cadastro. Verifique suas informações.');
+            setError(error.response?.data?.error || 'Erro ao fazer cadastro. Verifique suas informações.');
         } finally {
             setLoading(false);
         }
