@@ -10,6 +10,7 @@ function Recurses() {
     const [cadastro, setCadastro] = useState(false);
     const [relatorio, setRelatorio] = useState(false);
     const [indicadores, setIndicadores] = useState(false);
+    const [escala, setEscala] = useState(false);
 
     useEffect(() => {
         const userIdFromStorage = Number(localStorage.getItem('userId'));
@@ -18,6 +19,7 @@ function Recurses() {
         const cadastroFromStorage = Number(localStorage.getItem('cadastro')) === 1;
         const relatorioFromStorage = Number(localStorage.getItem('relatorio')) === 1;
         const indicadoresFromStorage = Number(localStorage.getItem('indicadores')) === 1;
+        const escalaFromStorage = Number(localStorage.getItem('escala')) === 1;
 
         setUserId(userIdFromStorage);
         setNome(nomeFromStorage || '');  // Garantindo que nome seja inicializado corretamente
@@ -51,7 +53,11 @@ function Recurses() {
                         <Link to="/Indicadores">
                             <button className="btn-app">Verificar Indicadores</button>
                         </Link>
-
+                }
+                {escala && 
+                        <Link to="/Escala">
+                            <button className="btn-app">Gerador de Escala</button>
+                        </Link>
                 }
             </ul>
         </div>
