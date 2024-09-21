@@ -59,7 +59,7 @@ function Cadastro() {
         const hashedPassword = md5(password);
 
         try {
-            const response = await axios.post('https://app-gestao-backend.vercel.app/auth/RTCadastro', {
+            const response = await axios.post('https://app-gestao-backend.vercel.app/auth/Cadastro', {
                 nome,
                 sobrenome,
                 password: hashedPassword,
