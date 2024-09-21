@@ -27,6 +27,7 @@ function Recurses() {
         setCadastro(cadastroFromStorage);
         setRelatorio(relatorioFromStorage);
         setIndicadores(indicadoresFromStorage);
+        setEscala(escalaFromStorage);
     }, []);
 
     return (
