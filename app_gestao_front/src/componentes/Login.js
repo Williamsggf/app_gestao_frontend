@@ -31,7 +31,7 @@ function Login() {
         password: hashedPassword
       });
 
-      const { id, nome, perfil, ponto, cadastro, relatorio, indicadores } = response.data;
+      const { id, nome, perfil, ponto, cadastro, relatorio, indicadores, escala } = response.data;
       localStorage.setItem('userId', id);
       localStorage.setItem('nome', nome);
       localStorage.setItem('perfil', perfil);
