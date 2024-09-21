@@ -3,10 +3,8 @@ import axios from 'axios';
 import md5 from 'md5';
 
 function formatCPF(value) {
-    // Remove qualquer caractere que não seja número
     value = value.replace(/\D/g, '');
 
-    // Adiciona pontos e hífen conforme necessário
     if (value.length > 9) {
         value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
     } else if (value.length > 6) {
@@ -19,10 +17,8 @@ function formatCPF(value) {
 }
 
 function formatCelular(value) {
-    // Remove qualquer caractere que não seja número
     value = value.replace(/\D/g, '');
 
-    // Adiciona pontos e hífen conforme necessário
     if (value.length > 4) {
         value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     } else if (value.length > 3) {
@@ -30,6 +26,37 @@ function formatCelular(value) {
     }
 
     return value;
+}
+
+// Função para validar CPF
+function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+        return false; // CPF deve ter 11 dígitos e não pode ser uma sequência repetida (ex: 111.111.111-11)
+    }
+
+    let soma = 0;
+    let resto;
+
+    // Verificação do primeiro dígito verificador
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(9, 10))) return false;
+
+    // Verificação do segundo dígito verificador
+    soma = 0;
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(10, 11))) return false;
+
+    return true;
 }
 
 function Cadastro() {
@@ -42,12 +69,18 @@ function Cadastro() {
     const [passwordConfir, setPasswordConfir] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [userId, setUserId] = useState(null); // Estado para armazenar o ID do usuário
+    const [userId, setUserId] = useState(null);
 
     const handleCadastro = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
+
+        if (!validarCPF(cpf)) {
+            setError('CPF inválido.');
+            setLoading(false);
+            return;
+        }
 
         if (password !== passwordConfir) {
             setError('As senhas não coincidem.');
@@ -55,7 +88,6 @@ function Cadastro() {
             return;
         }
 
-        // Exemplo de criptografia de senha com MD5 (não recomendado para produção)
         const hashedPassword = md5(password);
 
         try {
@@ -69,12 +101,10 @@ function Cadastro() {
             });
 
             console.log('Cadastro realizado com sucesso');
-
-            // Extraindo o ID do usuário da resposta
             const { id } = response.data;
-            setUserId(id); // Atualiza o estado com o ID do usuário
+            setUserId(id);
 
-            // Lógica adicional após o cadastro
+            navigate('/login');
 
         } catch (error) {
             console.error('Erro ao fazer cadastro:', error);

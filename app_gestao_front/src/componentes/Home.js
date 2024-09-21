@@ -13,6 +13,9 @@ function Home() {
         <Link to="/Cadastro">
           <button className="btn-app">Cadastro</button>
         </Link>
+        <Link to="https://chat.whatsapp.com/FuqRdxuKRfO74TsaOAHhLG">
+          <button className="btn-app">Grupo Sugestões e Melhorias</button>
+        </Link>
       </div>
     </div>
   );
