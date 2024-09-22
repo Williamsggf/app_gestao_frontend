@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Sistema de Gestão WG Consulte",
+  "name": "Seu sistema de gestão de tempo e rotinas",
   "icons": [
     {
       "src": "favicon.ico",

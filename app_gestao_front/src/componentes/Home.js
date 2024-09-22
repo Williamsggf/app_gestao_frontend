@@ -7,9 +7,9 @@ function Home() {
   <h1>Gestão WG Consultec</h1>
   <h3>Seu sistema de gestão:</h3>
   <ul>
-    <li>🚩 Tempo</li>
-    <li>🚩 Projetos</li>
-    <li>🚩 Equipes</li>
+    <p>Tempo</p>
+    <p>Projetos</p>
+    <p>Equipes</p>
   </ul>
       <div className="buttons-container">
         <Link to="/login">
