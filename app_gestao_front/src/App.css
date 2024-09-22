@@ -73,7 +73,7 @@ a:active:hover {
 input {
   display: block;
   box-sizing: border-box;
-  width: 100%;
+  width: 90%;
   outline: none;
   height: 60px;
   line-height: 60px;
@@ -82,7 +82,7 @@ input {
 
 input[type="password"],
 input[type="text"] {
-  width: 100%;
+  width: 90%;
   padding: 0 10px;
   margin: 10px 0;
   color: #8a8b8e;
@@ -112,7 +112,7 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 100%; /* Botões ocupam 100% da largura do formulário */
+  width: 90%; /* Botões ocupam 100% da largura do formulário */
   padding: 15px;
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
@@ -129,7 +129,7 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 100%; /* Botões ocupam 100% da largura do formulário */
+  width: 90%; /* Botões ocupam 100% da largura do formulário */
   padding: 15px;
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
@@ -146,7 +146,7 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 100%; /* Botões ocupam 100% da largura do formulário */
+  width: 90%; /* Botões ocupam 100% da largura do formulário */
   padding: 15px;
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
