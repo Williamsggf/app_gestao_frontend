@@ -56,7 +56,7 @@ a:active:hover {
   padding: 20px 0;
   border-radius: 4px;
   box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
-  margin: 0 auto; /* Centraliza os formulários */
+  margin: 0 auto; 
 }
 
 .login-form {
@@ -110,6 +110,16 @@ input[type="text"]:focus {
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
 }
+
+/* Estilo para o contêiner pai que envolve o botão */
+.container-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Para centralizar o botão no meio da tela */
+}
+
+/* Estilo para o botão */
 .btn-grup {
   border: none;
   background-color: #13e62fec;
@@ -121,9 +131,9 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 90%; /* Botões ocupam 100% da largura do formulário */
+  width: 90%; 
   padding: 15px;
-  margin: 10px 0; /* Espaço entre botões */
+  margin: 10px 0; 
   border-radius: 4px;
 }
 
