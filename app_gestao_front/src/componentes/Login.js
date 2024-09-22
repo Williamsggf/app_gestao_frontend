@@ -39,7 +39,8 @@ function Login() {
       localStorage.setItem('cadastro', cadastro);
       localStorage.setItem('relatorio', relatorio );
       localStorage.setItem('indicadores', indicadores);
-      localStorage.setItem('escala', 'escala');
+      localStorage.setItem('escala', escala);
+
 
       navigate('/recurses');
 
