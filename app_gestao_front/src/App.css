@@ -3,6 +3,11 @@ body {
   font-size: 1.6rem;
   font-family: "Open Sans", sans-serif;
   color: #2b3e51;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+  margin: 0;
 }
 
 h2 {
@@ -14,7 +19,6 @@ h2 {
   background-color: #fff;
   width: 75%;
   max-width: 500px;
-  margin: 30px auto;
   text-align: center;
   padding: 20px;
   border-radius: 4px;
@@ -43,28 +47,17 @@ a:active:hover {
   transition: all 0.2s ease;
 }
 
-.login-form-wrap {
-  background-color: #fff;
-  width: 100%;
-  max-width: 500px;
-  margin: 30px auto; /* Centraliza o formulário na página */
-  text-align: center;
-  padding: 20px 0 0 0;
-  border-radius: 4px;
-  box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
-}
-
+.login-form-wrap,
 .escala-form-wrap {
   background-color: #fff;
   width: 100%;
   max-width: 500px;
-  margin: 30px auto; /* Centraliza o formulário na página */
   text-align: center;
-  padding: 20px 0 0 0;
+  padding: 20px 0;
   border-radius: 4px;
   box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+  margin: 0 auto; /* Centraliza os formulários */
 }
-
 
 .login-form {
   padding: 0 60px;
