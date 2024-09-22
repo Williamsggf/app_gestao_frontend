@@ -145,80 +145,82 @@ function RegistroPonto() {
     }
   };
 
-    const registrarPonto = async () => {
-        const nvtp_reg = ultimatp_reg +1;
-        const novoRegistro = { data: getDataAtual(), hora: getHoraAtual(), tipo: nvtp_reg };
-        setRegistros([...registros, novoRegistro]);
-        setTpPonto(!tpPonto);
-        setLoading(true);
-        try {
-            const response = await axios.post('https://app-gestao-backend.vercel.app/auth/RGPonto', {
-                userId: userId,
-                data: getDataAtual(),
-                tp_reg: nvtp_reg,
-                forma: parseInt('1'),
-                hora: getHoraAtual(),
-                latitude: latitude,
-                longitude: longitude,
-                ip: publicIP,
-                ipv4: localIPv4
-            });
+  const registrarPonto = async () => {
+    const nvtp_reg = ultimatp_reg + 1;
+    const novoRegistro = { data: getDataAtual(), hora: getHoraAtual(), tipo: nvtp_reg };
+    setRegistros([...registros, novoRegistro]);
+    setTpPonto(!tpPonto);
+    setLoading(true);
+    try {
+      const response = await axios.post('https://app-gestao-backend.vercel.app/auth/RGPonto', {
+        userId: userId,
+        data: getDataAtual(),
+        tp_reg: nvtp_reg,
+        forma: parseInt('1'),
+        hora: getHoraAtual(),
+        latitude: latitude,
+        longitude: longitude,
+        ip: publicIP,
+        ipv4: localIPv4
+      });
 
-            const { tp_reg, hora, forma, status } = response.data;
-            localStorage.setItem('tp_reg', tp_reg);
-            localStorage.setItem('hora', hora);
-            localStorage.setItem('forma', forma);
-            localStorage.setItem('status', status);
+      const { tp_reg, hora, forma, status } = response.data;
+      localStorage.setItem('tp_reg', tp_reg);
+      localStorage.setItem('hora', hora);
+      localStorage.setItem('forma', forma);
+      localStorage.setItem('status', status);
 
-        } catch (error) {
-            setError('Erro ao registrar ponto');
-        } finally {
-            consultaPonto(userId);
-            setLoading(false);
-        }
+    } catch (error) {
+      setError('Erro ao registrar ponto');
+    } finally {
+      consultaPonto(userId);
+      setLoading(false);
+    }
 
-    };
+  };
 
-    const desBotao = ultimatp_reg === 0
+  const desBotao = ultimatp_reg === 0
     ? 'Entrada'
     : ultimatp_reg === 1
-    ? 'Saída'
-    : ultimatp_reg === 2
-    ? 'Entrada'
-    : 'Saída';
+      ? 'Saída'
+      : ultimatp_reg === 2
+        ? 'Entrada'
+        : 'Saída';
 
-    const descricaoBotao = ultimatp_reg === 0 ? 'Entrada' 
+  const descricaoBotao = ultimatp_reg === 0 ? 'Entrada'
     : ultimatp_reg === 1 ? 'Saída'
-    : ultimatp_reg === 2 ? 'Entrada'
-    : 'Saída';
+      : ultimatp_reg === 2 ? 'Entrada'
+        : 'Saída';
 
-    
 
-    return (
-        <div>
-            <h2>Registro de ponto</h2>
-            <p>Nome: {nome}</p>
-            <h3>Registros:</h3>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <ul>
-                {ctponto.map((registro, index) => (
-                    <p className='btn-app' key={index}>
-                        {registro.forma === 1 && <span> Registro Automático</span>} - 
-                        {registro.tp_reg === 1 && <span> Entrada </span>}
-                        {registro.tp_reg === 2 && <span> Saida Almoço </span>}
-                        {registro.tp_reg === 3 && <span> Volta Almoço </span>}
-                        {registro.tp_reg === 4 && <span> Saida </span>}
 
-                         
-                        Ás {registro.hora}
-                    </p>
-                ))}
-            </ul>
-            <button className={`btn-app-${desBotao.toLowerCase()}`} onClick={registrarPonto} disabled={loading}>
-                {loading ? 'Registrando...' : `Registrar ${descricaoBotao} às ${hora}`}
-            </button>
-        </div>
-    );
+  return (
+    <div>
+      <h2>Registro de ponto</h2>
+      <p>Nome: {nome}</p>
+      <h3>Registros:</h3>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <ul>
+        {ctponto.map((registro, index) => (
+          <p className='btn-app' key={index}>
+            {registro.forma === 1 && <span> Registro Automático</span>} -
+            {registro.tp_reg === 1 && <span> Entrada </span>}
+            {registro.tp_reg === 2 && <span> Saida Almoço </span>}
+            {registro.tp_reg === 3 && <span> Volta Almoço </span>}
+            {registro.tp_reg === 4 && <span> Saida </span>}
+            Ás {registro.hora}
+          </p>
+        ))}
+      </ul>
+
+      {/* Não renderizar o botão se já houver 4 registros */}
+      {ultimatp_reg < 4 && (
+        <button className={`btn-app-${desBotao.toLowerCase()}`} onClick={registrarPonto} disabled={loading}>
+          {loading ? 'Registrando...' : `Registrar ${descricaoBotao} às ${hora}`}
+        </button>
+      )}
+    </div>
+  );
 }
 
 export default RegistroPonto;
