@@ -117,6 +117,22 @@ input[type="text"]:focus {
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
 }
+.btn-grup {
+  border: none;
+  background-color: #13e62fec;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  text-align: center;
+  width: 90%; /* Botões ocupam 100% da largura do formulário */
+  padding: 15px;
+  margin: 10px 0; /* Espaço entre botões */
+  border-radius: 4px;
+}
 
 .btn-app-entrada {
   border: none;

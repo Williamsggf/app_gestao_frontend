@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 
 const getDataAtual = () => {
@@ -195,31 +196,38 @@ function RegistroPonto() {
 
 
   return (
-    <div>
-      <h2>Registro de ponto</h2>
-      <p>Nome: {nome}</p>
-      <h3>Registros:</h3>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <ul>
-        {ctponto.map((registro, index) => (
-          <p className='btn-app' key={index}>
-            {registro.forma === 1 && <span> Registro Automático</span>} -
-            {registro.tp_reg === 1 && <span> Entrada </span>}
-            {registro.tp_reg === 2 && <span> Saida Almoço </span>}
-            {registro.tp_reg === 3 && <span> Volta Almoço </span>}
-            {registro.tp_reg === 4 && <span> Saida </span>}
-            Ás {registro.hora}
-          </p>
-        ))}
-      </ul>
+    <>
+      <div>
+        <h2>Registro de ponto</h2>
+        <p>Nome: {nome}</p>
+        <h3>Registros:</h3>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <ul>
+          {ctponto.map((registro, index) => (
+            <p className='btn-app' key={index}>
+              {registro.forma === 1 && <span> Registro Automático</span>} -
+              {registro.tp_reg === 1 && <span> Entrada </span>}
+              {registro.tp_reg === 2 && <span> Saida Almoço </span>}
+              {registro.tp_reg === 3 && <span> Volta Almoço </span>}
+              {registro.tp_reg === 4 && <span> Saida </span>}
+              Ás {registro.hora}
+            </p>
+          ))}
+        </ul>
 
-      {/* Não renderizar o botão se já houver 4 registros */}
-      {ultimatp_reg < 4 && (
-        <button className={`btn-app-${desBotao.toLowerCase()}`} onClick={registrarPonto} disabled={loading}>
-          {loading ? 'Registrando...' : `Registrar ${descricaoBotao} às ${hora}`}
-        </button>
-      )}
-    </div>
+        {/* Não renderizar o botão se já houver 4 registros */}
+        {ultimatp_reg < 4 && (
+          <button className={`btn-app-${desBotao.toLowerCase()}`} onClick={registrarPonto} disabled={loading}>
+            {loading ? 'Registrando...' : `Registrar ${descricaoBotao} às ${hora}`}
+          </button>
+        )}
+      </div>
+      <div>
+        <Link to="https://chat.whatsapp.com/FuqRdxuKRfO74TsaOAHhLG">
+          <button className="btn-grup">Grupo Sugestões e Melhorias</button>
+        </Link>
+      </div>
+    </>
   );
 }
 

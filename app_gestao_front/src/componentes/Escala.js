@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // Função para validar a possibilidade de criação da escala (validação com base em horas de trabalho e turnos)
 function validarEscalaBasica(setor, numTurnos, numFuncionarios, duracaoTurno, interjornada, numFuncionariosPorTurno) {
@@ -28,7 +29,7 @@ function validarEscalaBasica(setor, numTurnos, numFuncionarios, duracaoTurno, in
 
     // Calcula a disponibilidade total de horas dos funcionários (funcionários * 24 horas)
     const horasDisponiveis = numFuncionarios * (24 - interjornada);
-    
+
     // Calcula a quantidade total de horas necessárias para cobrir todos os turnos
     const horasNecessarias = numFuncionariosPorTurno.reduce((acc, numFuncTurno) => acc + (numFuncTurno * duracaoTurno), 0);
 
@@ -62,7 +63,7 @@ function Escala() {
 
         // Validação básica dos dados de entrada
         const validacaoBasica = validarEscalaBasica(setor, numTurnos, numFuncionarios, duracaoTurno, interjornada, numFuncionariosPorTurno);
-        
+
         if (!validacaoBasica) {
             setError('Erro na validação da escala. Veja o console para detalhes.');
             return;
@@ -78,71 +79,78 @@ function Escala() {
     };
 
     return (
-        <div className='escala-form-wrap'>
-            <h2>Validação de Escala</h2>
-            <p>Vamos criar a escala de trabalho para sua empresa</p>
-            <form onSubmit={handleValidarEscala}>
-                <input
-                    type='text'
-                    placeholder='Nome do Setor'
-                    required
-                    value={setor}
-                    onChange={(e) => setSetor(e.target.value)}
-                />
-                <input
-                    type='number'
-                    placeholder='Número de Turnos'
-                    min='1'
-                    required
-                    value={numTurnos}
-                    onChange={(e) => setNumTurnos(parseInt(e.target.value))}
-                />
-                <input
-                    type='number'
-                    placeholder='Número de Funcionários'
-                    min='1'
-                    required
-                    value={numFuncionarios}
-                    onChange={(e) => setNumFuncionarios(parseInt(e.target.value))}
-                />
-                <input
-                    type='number'
-                    placeholder='Duração do Turno (em horas)'
-                    min='1'
-                    max='24'
-                    required
-                    value={duracaoTurno}
-                    onChange={(e) => setDuracaoTurno(parseInt(e.target.value))}
-                />
-                <input
-                    type='number'
-                    placeholder='Intervalo entre jornadas (em horas)'
-                    min='12'
-                    required
-                    value={interjornada}
-                    onChange={(e) => setInterJornada(parseInt(e.target.value))}
-                />
-                
-                <div>
-                    <h3>Funcionários por Turno</h3>
-                    {Array.from({ length: numTurnos }).map((_, index) => (
-                        <div key={index}>
-                            <input
-                                type='number'
-                                placeholder={`Número de Funcionários no Turno ${index + 1}`}
-                                min='1'
-                                value={numFuncionariosPorTurno[index] || ''}
-                                onChange={(e) => handleNumFuncionariosPorTurnoChange(index, e.target.value)}
-                            />
-                        </div>
-                    ))}
-                </div>
+        <>
+            <div className='escala-form-wrap'>
+                <h2>Validação de Escala</h2>
+                <p>Vamos criar a escala de trabalho para sua empresa</p>
+                <form onSubmit={handleValidarEscala}>
+                    <input
+                        type='text'
+                        placeholder='Nome do Setor'
+                        required
+                        value={setor}
+                        onChange={(e) => setSetor(e.target.value)}
+                    />
+                    <input
+                        type='number'
+                        placeholder='Número de Turnos'
+                        min='1'
+                        required
+                        value={numTurnos}
+                        onChange={(e) => setNumTurnos(parseInt(e.target.value))}
+                    />
+                    <input
+                        type='number'
+                        placeholder='Número de Funcionários'
+                        min='1'
+                        required
+                        value={numFuncionarios}
+                        onChange={(e) => setNumFuncionarios(parseInt(e.target.value))}
+                    />
+                    <input
+                        type='number'
+                        placeholder='Duração do Turno (em horas)'
+                        min='1'
+                        max='24'
+                        required
+                        value={duracaoTurno}
+                        onChange={(e) => setDuracaoTurno(parseInt(e.target.value))}
+                    />
+                    <input
+                        type='number'
+                        placeholder='Intervalo entre jornadas (em horas)'
+                        min='12'
+                        required
+                        value={interjornada}
+                        onChange={(e) => setInterJornada(parseInt(e.target.value))}
+                    />
 
-                <button type='submit'>Validar Escala</button>
-                {error && <p className='error'>{error}</p>}
-                {success && <p className='success'>{success}</p>}
-            </form>
-        </div>
+                    <div>
+                        <h3>Funcionários por Turno</h3>
+                        {Array.from({ length: numTurnos }).map((_, index) => (
+                            <div key={index}>
+                                <input
+                                    type='number'
+                                    placeholder={`Número de Funcionários no Turno ${index + 1}`}
+                                    min='1'
+                                    value={numFuncionariosPorTurno[index] || ''}
+                                    onChange={(e) => handleNumFuncionariosPorTurnoChange(index, e.target.value)}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    <button type='submit'>Validar Escala</button>
+                    {error && <p className='error'>{error}</p>}
+                    {success && <p className='success'>{success}</p>}
+                </form>
+            </div>
+            <div>
+                <Link to="https://chat.whatsapp.com/FuqRdxuKRfO74TsaOAHhLG">
+                    <button className="btn-grup">Grupo Sugestões e Melhorias</button>
+                </Link>
+            </div>
+        </>
     );
 }
 

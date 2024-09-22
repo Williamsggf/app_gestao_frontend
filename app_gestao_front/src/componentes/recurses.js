@@ -35,32 +35,36 @@ function Recurses() {
             <h2>Bem-vindo à página de recursos</h2>
             <p>Olá {nome}, o que gostaria de fazer?</p>
             <ul>
-                {ponto && 
-                        <Link to="/Registropt">
-                            <button className="btn-app">Registrar Ponto</button>
-                        </Link>
-                }
-                {cadastro && 
-                    <Link to="/Cadastro">
-                            <button className="btn-app">Cadastrar Usuário</button>
+                {ponto &&
+                    <Link to="/Registropt">
+                        <button className="btn-app">Registrar Ponto</button>
                     </Link>
-                    }
-                {relatorio && 
-                        <Link to="/Relatorios">
-                            <button className="btn-app">Gerar Relatórios</button>
-                        </Link>
                 }
-                {indicadores && 
-                        <Link to="/Indicadores">
-                            <button className="btn-app">Verificar Indicadores</button>
-                        </Link>
+                {cadastro &&
+                    <Link to="/Cadastro">
+                        <button className="btn-app">Cadastrar Usuário</button>
+                    </Link>
                 }
-                {escala && 
-                        <Link to="/Escala">
-                            <button className="btn-app">Gerador de Escala</button>
-                        </Link>
+                {relatorio &&
+                    <Link to="/Relatorios">
+                        <button className="btn-app">Gerar Relatórios</button>
+                    </Link>
                 }
+                {indicadores &&
+                    <Link to="/Indicadores">
+                        <button className="btn-app">Verificar Indicadores</button>
+                    </Link>
+                }
+                {escala &&
+                    <Link to="/Escala">
+                        <button className="btn-app">Gerador de Escala</button>
+                    </Link>
+                }
+
             </ul>
+            <Link to="https://chat.whatsapp.com/FuqRdxuKRfO74TsaOAHhLG">
+                <button className="btn-grup">Grupo Sugestões e Melhorias</button>
+            </Link>
         </div>
     );
 }
