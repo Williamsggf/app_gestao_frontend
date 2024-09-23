@@ -7,6 +7,7 @@ import Registropt from './componentes/Registropt';
 import Escala from './componentes/Escala';
 import Indicadores from './componentes/Indicadores';
 import Relatorios from './componentes/Relatorios';
+import RelDia from './CompRelatorios/RelDia'; 
 import { Routes, Route } from 'react-router-dom';
 
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/escala" element={<Escala />}/>
           <Route path="/indicadores" element={<Indicadores />}/>
           <Route path="/relatorios" element={<Relatorios />}/>
+          <Route path="/compreldia" element={<RelDia />}/>
         </Routes>
       </header>
     </div>
