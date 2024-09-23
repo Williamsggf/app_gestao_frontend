@@ -1,10 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import RelDia from './CompRelatorios/RelDia';
+import { Link, Router } from 'react-router-dom';
 
 function Relatorios() {
 
     return (
         <>
+        <Router>
+            <RelDia />
+        </Router>
             <div className="relatorios-form-wrap">
                 <h2>Relatorios de pontos por:</h2>
             </div>
