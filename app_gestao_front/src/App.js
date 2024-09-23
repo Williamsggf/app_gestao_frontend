@@ -6,6 +6,7 @@ import Recurses from './componentes/recurses';
 import Registropt from './componentes/Registropt';
 import Escala from './componentes/Escala';
 import Indicadores from './componentes/Indicadores';
+import Relatorios from './componentes/Relatorios';
 import { Routes, Route } from 'react-router-dom';
 
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/registropt" element={<Registropt />}/>
           <Route path="/escala" element={<Escala />}/>
           <Route path="/indicadores" element={<Indicadores />}/>
+          <Route path="/relatorios" element={<Relatorios />}/>
         </Routes>
       </header>
     </div>
