@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { consultaPonto } from "./Funcoes/ConsultaPonto";
-import { Link } from "react-router-dom"; // Certifique-se de que o react-router-dom esteja instalado
+import { Link } from "react-router-dom"; 
 import { getHoraAtual, getDataAtual, calcularDiferencaHoras } from './Funcoes/utils';
- // Certifique-se de importar essas funções
 
 function RegistroPonto() {
   const [hora, setHora] = useState(getHoraAtual());
@@ -27,8 +26,7 @@ function RegistroPonto() {
     setUserId(userIdFromStorage);
     setNome(nomeFromStorage);
 
-    const dataConsulta = getDataAtual();
-    
+    const dataConsulta = getDataAtual(); // Mantenha a definição de dataConsulta aqui
 
     if (userIdFromStorage) {
       consultaPonto(userIdFromStorage, dataConsulta, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
@@ -103,6 +101,10 @@ function RegistroPonto() {
     setRegistros([...registros, novoRegistro]);
     setTpPonto(!tpPonto);
     setLoading(true);
+
+    // Definir dataConsulta dentro da função registrarPonto
+    const dataConsulta = getDataAtual();
+
     try {
       const response = await axios.post('https://app-gestao-backend.vercel.app/auth/RGPonto', {
         userId: userId,
@@ -125,7 +127,6 @@ function RegistroPonto() {
     } catch (error) {
       setError('Erro ao registrar ponto');
     } finally {
-      consultaPonto(userId, dataConsulta, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
       consultaPonto(userId, dataConsulta, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
       setLoading(false);
     }
@@ -156,10 +157,10 @@ function RegistroPonto() {
             <p className='btn-app' key={index}>
               {registro.forma === 1 && <span> Registro Automático</span>} -
               {registro.tp_reg === 1 && <span> Entrada </span>}
-              {registro.tp_reg === 2 && <span> Saida Almoço </span>}
+              {registro.tp_reg === 2 && <span> Saída Almoço </span>}
               {registro.tp_reg === 3 && <span> Volta Almoço </span>}
-              {registro.tp_reg === 4 && <span> Saida </span>}
-              Ás {registro.hora}
+              {registro.tp_reg === 4 && <span> Saída </span>}
+              Às {registro.hora}
             </p>
           ))}
         </ul>

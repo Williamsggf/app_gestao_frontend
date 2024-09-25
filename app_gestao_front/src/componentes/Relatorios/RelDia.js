@@ -32,28 +32,30 @@ function RelDia() {
     setDate(getDataSelecionada()); // Atualiza a data ao montar o componente
   }, [startDate]);
 
-  const dataConsulta = getDataSelecionada();
-
   // Função que realiza a consulta de ponto
   const handleConsultaPonto = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      await consultaPonto(
-        userId,
-        dataConsulta,
-        setUltimatp_reg, // Parâmetro para atualizar o último tipo de registro
-        (result) => setConsulta(result || []), // Garante que será um array, mesmo que vazio
-        setResumoHoras,
-        setLoading,
-        setError
-      );
-    } catch (error) {
-      setError(`Erro ao realizar a consulta: ${error.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  setError("");
+
+  const dataConsulta = getDataSelecionada();
+
+  try {
+    await consultaPonto(
+      userId,
+      dataConsulta,
+      setUltimatp_reg,
+      (result) => setConsulta(result || []), // Garante que sempre será um array, mesmo que vazio
+      setResumoHoras,
+      setLoading,
+      setError
+    );
+  } catch (error) {
+    setError(`Erro ao realizar a consulta: ${error.message}`);
+    setConsulta([]); // Garante que `consulta` seja um array vazio em caso de erro
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
@@ -92,7 +94,7 @@ function RelDia() {
               {registro.tp_reg === 2 && <span> Saída Almoço </span>}
               {registro.tp_reg === 3 && <span> Volta Almoço </span>}
               {registro.tp_reg === 4 && <span> Saída </span>}
-              Ás {registro.hora}
+              Às {registro.hora}
             </p>
           ))
         ) : (

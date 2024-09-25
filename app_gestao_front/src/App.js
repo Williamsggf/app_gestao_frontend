@@ -9,6 +9,7 @@ import Indicadores from './componentes/Indicadores';
 import Relatorios from './componentes/Relatorios';
 import RelDia from './componentes/Relatorios/RelDia';
 import { Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/relatorios" element={<Relatorios />}/>
           <Route path="/Relatorios/RelDia" element={<RelDia />}/>
         </Routes>
+        <SpeedInsights />
       </header>
     </div>
   );
