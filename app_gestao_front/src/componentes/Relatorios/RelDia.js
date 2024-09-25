@@ -32,7 +32,7 @@ function RelDia() {
     setDate(getDataSelecionada()); // Atualiza a data ao montar o componente
   }, [startDate]);
 
-  const dataConsulta = getDataSelecionada(startDate);
+  const dataConsulta = getDataSelecionada();
 
   // Função que realiza a consulta de ponto
   const handleConsultaPonto = async () => {
