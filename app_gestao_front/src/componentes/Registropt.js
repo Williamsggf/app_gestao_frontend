@@ -27,8 +27,11 @@ function RegistroPonto() {
     setUserId(userIdFromStorage);
     setNome(nomeFromStorage);
 
+    const dataConsulta = getDataAtual();
+    
+
     if (userIdFromStorage) {
-      consultaPonto(userIdFromStorage, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
+      consultaPonto(userIdFromStorage, dataConsulta, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
     }
   }, []);
 
@@ -122,7 +125,8 @@ function RegistroPonto() {
     } catch (error) {
       setError('Erro ao registrar ponto');
     } finally {
-      consultaPonto(userId, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
+      consultaPonto(userId, dataConsulta, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
+      consultaPonto(userId, dataConsulta, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
       setLoading(false);
     }
   };

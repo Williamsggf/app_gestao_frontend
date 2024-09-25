@@ -30,12 +30,16 @@ function RelDia() {
     setDate(getDataSelecionada());
   }, [startDate]);
 
+  const dataConsulta = date;
+
+
   const handleConsultaPonto = async () => {
     setLoading(true);
     setError("");
     try {
       await consultaPonto(
         userId,
+        dataConsulta,
         setUltimatp_reg, // Adicione este parâmetro
         setConsulta,
         setResumoHoras,
