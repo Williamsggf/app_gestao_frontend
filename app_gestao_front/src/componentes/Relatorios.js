@@ -1,20 +1,16 @@
 import React from 'react';
-import RelDia from './CompRelatorios/RelDia';
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Removi o Router
 
 function Relatorios() {
 
     return (
         <>
-        <Router>
-            <RelDia />
-        </Router>
             <div className="relatorios-form-wrap">
-                <h2>Relatorios de pontos por:</h2>
+                <h2>Relatórios de pontos por:</h2>
             </div>
             <div>
-                <Link to="./CompRelatorios/RelDia">
-                    <button className="btn-grup">Diario</button>
+                <Link to="/Relatorios/RelDia">
+                    <button className="btn-grup">Diário</button>
                 </Link>
             </div>
             <div>

@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import axios from "axios";
-
-const getDataAtual = () => {
-  const hoje = new Date();
-  return hoje.toLocaleDateString();
-};
-
-const getHoraAtual = () => {
-  const agora = new Date();
-  return agora.toLocaleTimeString();
-};
+import { consultaPonto } from "./Funcoes/ConsultaPonto";
+import { Link } from "react-router-dom"; // Certifique-se de que o react-router-dom esteja instalado
+import { getHoraAtual, getDataAtual, calcularDiferencaHoras } from './Funcoes/utils';
+ // Certifique-se de importar essas funções
 
 function RegistroPonto() {
   const [hora, setHora] = useState(getHoraAtual());
@@ -26,6 +19,7 @@ function RegistroPonto() {
   const [publicIP, setPublicIP] = useState(null);
   const [ultimatp_reg, setUltimatp_reg] = useState(0);
   const [localIPv4, setLocalIPv4] = useState(null);
+  const [resumoHoras, setResumoHoras] = useState("");
 
   useEffect(() => {
     const userIdFromStorage = Number(localStorage.getItem("userId"));
@@ -33,56 +27,10 @@ function RegistroPonto() {
     setUserId(userIdFromStorage);
     setNome(nomeFromStorage);
 
-    const intervalo = setInterval(() => {
-      setHora(getHoraAtual());
-    }, 1000);
-
-    getLocation();
-    getLocalIPv4();
     if (userIdFromStorage) {
-      consultaPonto(userIdFromStorage);
+      consultaPonto(userIdFromStorage, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
     }
-
-    return () => clearInterval(intervalo);
   }, []);
-
-  const consultaPonto = async (idUsuario) => {
-    const consultapt = { userId: idUsuario, data: getDataAtual() };
-    setLoading(true);
-
-    try {
-      const response = await axios.post(
-        "https://app-gestao-backend.vercel.app/auth/CTPonto",
-        consultapt
-      );
-
-      const registrosConsultados = response.data.registros.map((registro) => ({
-        id: registro.id,
-        dt_ponto: registro.dt_ponto,
-        tp_reg: registro.tp_reg,
-        forma: registro.forma,
-        hora: registro.hora,
-      }));
-      if (registrosConsultados.length === 0) {
-        setUltimatp_reg(1);
-      } else {
-        let maiortp_reg = 0;
-
-        registrosConsultados.forEach((registro) => {
-          if (registro.tp_reg >= maiortp_reg) {
-            maiortp_reg = registro.tp_reg;
-          }
-        });
-        setUltimatp_reg(maiortp_reg);
-      }
-
-      setConsulta(registrosConsultados);
-    } catch (error) {
-      setError("Não há pontos registrados hoje");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -174,10 +122,9 @@ function RegistroPonto() {
     } catch (error) {
       setError('Erro ao registrar ponto');
     } finally {
-      consultaPonto(userId);
+      consultaPonto(userId, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError);
       setLoading(false);
     }
-
   };
 
   const desBotao = ultimatp_reg === 0
@@ -192,8 +139,6 @@ function RegistroPonto() {
     : ultimatp_reg === 1 ? 'Saída'
       : ultimatp_reg === 2 ? 'Entrada'
         : 'Saída';
-
-
 
   return (
     <>
@@ -220,6 +165,13 @@ function RegistroPonto() {
           <button className={`btn-app-${desBotao.toLowerCase()}`} onClick={registrarPonto} disabled={loading}>
             {loading ? 'Registrando...' : `Registrar ${descricaoBotao} às ${hora}`}
           </button>
+        )}
+        {/* Exibir resumo após o quarto registro */}
+        {ultimatp_reg === 4 && resumoHoras && (
+          <div>
+            <h4>Resumo:</h4>
+            <p>{resumoHoras}</p>
+          </div>
         )}
       </div>
       <div>

@@ -3,11 +3,6 @@ body {
   font-size: 1.6rem;
   font-family: "Open Sans", sans-serif;
   color: #2b3e51;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; 
-  margin: 0;
 }
 
 h2 {
@@ -19,6 +14,7 @@ h2 {
   background-color: #fff;
   width: 75%;
   max-width: 500px;
+  margin: 30px auto;
   text-align: center;
   padding: 20px;
   border-radius: 4px;
@@ -47,16 +43,15 @@ a:active:hover {
   transition: all 0.2s ease;
 }
 
-.login-form-wrap,
-.escala-form-wrap {
+.login-form-wrap {
   background-color: #fff;
   width: 100%;
   max-width: 500px;
+  margin: 30px auto; /* Centraliza o formulário na página */
   text-align: center;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
   border-radius: 4px;
   box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
-  margin: 0 auto; 
 }
 
 .login-form {
@@ -66,7 +61,7 @@ a:active:hover {
 input {
   display: block;
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
   outline: none;
   height: 60px;
   line-height: 60px;
@@ -75,7 +70,7 @@ input {
 
 input[type="password"],
 input[type="text"] {
-  width: 90%;
+  width: 100%;
   padding: 0 10px;
   margin: 10px 0;
   color: #8a8b8e;
@@ -105,24 +100,15 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 90%; /* Botões ocupam 100% da largura do formulário */
+  width: 100%; /* Botões ocupam 100% da largura do formulário */
   padding: 15px;
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
 }
 
-/* Estilo para o contêiner pai que envolve o botão */
-.container-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Para centralizar o botão no meio da tela */
-}
-
-/* Estilo para o botão */
 .btn-grup {
   border: none;
-  background-color: #13e62fec;
+  background-color: #15d163;
   color: #fff;
   font-weight: bold;
   text-transform: uppercase;
@@ -131,11 +117,29 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 90%; 
+  width: 100%; /* Botões ocupam 100% da largura do formulário */
   padding: 15px;
-  margin: 10px 0; 
+  margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
 }
+
+.reg-pt{
+  border: none;
+  background-color: #15a5d1;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  text-align: center;
+  width: 75%; /* Botões ocupam 100% da largura do formulário */
+  padding: 20px;
+  margin: 20px 0; /* Espaço entre botões */
+  border-radius: 4px;
+}
+
 
 .btn-app-entrada {
   border: none;
@@ -148,7 +152,7 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 90%; /* Botões ocupam 100% da largura do formulário */
+  width: 100%; /* Botões ocupam 100% da largura do formulário */
   padding: 15px;
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
@@ -165,7 +169,7 @@ input[type="text"]:focus {
   transition: all 0.2s ease;
   font-size: 18px;
   text-align: center;
-  width: 90%; /* Botões ocupam 100% da largura do formulário */
+  width: 100%; /* Botões ocupam 100% da largura do formulário */
   padding: 15px;
   margin: 10px 0; /* Espaço entre botões */
   border-radius: 4px;
