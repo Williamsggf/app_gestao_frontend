@@ -15,24 +15,26 @@ function RelDia() {
   const [ultimatp_reg, setUltimatp_reg] = useState(0);
   const [date, setDate] = useState("");
 
-  const getDataSelecionada = () => {
-    const data = new Date(startDate);
-    return `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}-${String(data.getDate()).padStart(2, '0')}`;
+  // Função que formata a data no formato "YYYY-MM-DD"
+  const getDataSelecionada = (data = startDate) => {
+    const novaData = new Date(data);
+    return `${novaData.getFullYear()}-${String(novaData.getMonth() + 1).padStart(2, '0')}-${String(novaData.getDate()).padStart(2, '0')}`;
   };
 
+  // Efeito para carregar o userId e o nome do localStorage
   useEffect(() => {
     const userIdFromStorage = localStorage.getItem("userId");
     const nomeFromStorage = localStorage.getItem("nome");
 
     if (userIdFromStorage) setUserId(userIdFromStorage);
     if (nomeFromStorage) setNome(nomeFromStorage);
-    
-    setDate(getDataSelecionada());
+
+    setDate(getDataSelecionada()); // Atualiza a data ao montar o componente
   }, [startDate]);
 
   const dataConsulta = date;
 
-
+  // Função que realiza a consulta de ponto
   const handleConsultaPonto = async () => {
     setLoading(true);
     setError("");
@@ -40,7 +42,7 @@ function RelDia() {
       await consultaPonto(
         userId,
         dataConsulta,
-        setUltimatp_reg, // Adicione este parâmetro
+        setUltimatp_reg, // Parâmetro para atualizar o último tipo de registro
         setConsulta,
         setResumoHoras,
         setLoading,
@@ -64,7 +66,10 @@ function RelDia() {
         <label>Selecione a Data:</label>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => {
+            setStartDate(date);
+            setDate(getDataSelecionada(date)); // Atualiza a data informada diretamente
+          }}
           dateFormat="dd/MM/yyyy"
         />
       </div>
@@ -81,12 +86,12 @@ function RelDia() {
       <ul>
         {consulta.length > 0 ? (
           consulta.map((registro, index) => (
-            <p className='btn-app' key={index}>
+            <p className="btn-app" key={index}>
               {registro.forma === 1 && <span> Registro Automático</span>} -
               {registro.tp_reg === 1 && <span> Entrada </span>}
-              {registro.tp_reg === 2 && <span> Saida Almoço </span>}
+              {registro.tp_reg === 2 && <span> Saída Almoço </span>}
               {registro.tp_reg === 3 && <span> Volta Almoço </span>}
-              {registro.tp_reg === 4 && <span> Saida </span>}
+              {registro.tp_reg === 4 && <span> Saída </span>}
               Ás {registro.hora}
             </p>
           ))
