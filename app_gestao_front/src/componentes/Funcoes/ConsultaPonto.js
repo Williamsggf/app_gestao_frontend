@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getDataAtual, calcularDiferencaHoras } from "./utils"; // Ajuste o caminho de acordo com a localização do utils
+import { calcularDiferencaHoras } from "./utils"; // Ajuste o caminho de acordo com a localização do utils
 
 export const consultaPonto = async (idUsuario, dataConsulta ,setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError) => {
   const consultapt = { userId: idUsuario, data: dataConsulta };

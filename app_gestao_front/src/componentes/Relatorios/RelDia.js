@@ -7,7 +7,7 @@ import { consultaPonto } from "../Funcoes/ConsultaPonto";
 function RelDia() {
   const [startDate, setStartDate] = useState(new Date());
   const [loading, setLoading] = useState(false);
-  const [consulta, setConsulta] = useState([]);
+  const [consulta, setConsulta] = useState([]); // Inicializa com array vazio
   const [resumoHoras, setResumoHoras] = useState("");
   const [error, setError] = useState("");
   const [userId, setUserId] = useState(null);
@@ -43,7 +43,7 @@ function RelDia() {
         userId,
         dataConsulta,
         setUltimatp_reg, // Parâmetro para atualizar o último tipo de registro
-        setConsulta,
+        (result) => setConsulta(result || []), // Garante que será um array, mesmo que vazio
         setResumoHoras,
         setLoading,
         setError
@@ -84,7 +84,7 @@ function RelDia() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <ul>
-        {consulta.length > 0 ? (
+        {Array.isArray(consulta) && consulta.length > 0 ? (
           consulta.map((registro, index) => (
             <p className="btn-app" key={index}>
               {registro.forma === 1 && <span> Registro Automático</span>} -
