@@ -1,7 +1,7 @@
 import axios from "axios";
 import { calcularDiferencaHoras } from "./utils"; // Ajuste o caminho de acordo com a localização do utils
 
-export const consultaPonto = async (idUsuario, dataConsulta ,setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError) => {
+export const consultaPonto = async (idUsuario, dataConsulta, setUltimatp_reg, setConsulta, setResumoHoras, setLoading, setError) => {
   const consultapt = { userId: idUsuario, data: dataConsulta };
   setLoading(true);
 
@@ -13,7 +13,7 @@ export const consultaPonto = async (idUsuario, dataConsulta ,setUltimatp_reg, se
 
     // Verifica se response.data e response.data.registros estão definidos
     if (!response.data || !Array.isArray(response.data.registros)) {
-      throw new Error("Não a registros de ponto para esta data.");
+      throw new Error("Não há registros de ponto para esta data.");
     }
 
     const registrosConsultados = response.data.registros.map((registro) => ({
@@ -25,7 +25,7 @@ export const consultaPonto = async (idUsuario, dataConsulta ,setUltimatp_reg, se
     }));
 
     if (registrosConsultados.length === 0) {
-      setUltimatp_reg(1); 
+      setUltimatp_reg(1);
     } else {
       let maiortp_reg = 0;
       registrosConsultados.forEach((registro) => {
@@ -46,7 +46,20 @@ export const consultaPonto = async (idUsuario, dataConsulta ,setUltimatp_reg, se
           const turno2 = calcularDiferencaHoras(horaVoltaAlmoco, horaSaida);
           const intervaloAlmoco = calcularDiferencaHoras(horaSaidaAlmoco, horaVoltaAlmoco);
 
-          const horasTotais = `${parseInt(turno1.split('h')[0]) + parseInt(turno2.split('h')[0])}h ${parseInt(turno1.split('h')[1]) + parseInt(turno2.split('h')[1])}min`;
+          // Somando corretamente as horas e minutos
+          const [horasTurno1, minutosTurno1] = turno1.split('h').map((item) => parseInt(item.trim().replace('min', '')));
+          const [horasTurno2, minutosTurno2] = turno2.split('h').map((item) => parseInt(item.trim().replace('min', '')));
+
+          let totalHoras = horasTurno1 + horasTurno2;
+          let totalMinutos = minutosTurno1 + minutosTurno2;
+
+          // Se o total de minutos for maior que 60, converte em horas
+          if (totalMinutos >= 60) {
+            totalHoras += Math.floor(totalMinutos / 60);
+            totalMinutos = totalMinutos % 60;
+          }
+
+          const horasTotais = `${totalHoras}h ${totalMinutos}min`;
 
           setResumoHoras(`Total de horas trabalhadas: ${horasTotais}\nIntervalo de almoço: ${intervaloAlmoco}`);
         } else {
