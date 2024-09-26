@@ -11,6 +11,11 @@ export const consultaPonto = async (idUsuario, dataConsulta ,setUltimatp_reg, se
       consultapt
     );
 
+    // Verifica se response.data e response.data.registros estão definidos
+    if (!response.data || !Array.isArray(response.data.registros)) {
+      throw new Error("Não a registros de ponto para esta data.");
+    }
+
     const registrosConsultados = response.data.registros.map((registro) => ({
       id: registro.id,
       dt_ponto: registro.dt_ponto,
@@ -52,7 +57,7 @@ export const consultaPonto = async (idUsuario, dataConsulta ,setUltimatp_reg, se
 
     setConsulta(registrosConsultados);
   } catch (error) {
-    setError(`Erro ao consultar o ponto: ${error.message}`);
+    setError(`${error.message}`);
   } finally {
     setLoading(false);
   }
