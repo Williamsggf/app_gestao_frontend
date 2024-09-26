@@ -15,10 +15,13 @@ function RelDia() {
   const [ultimatp_reg, setUltimatp_reg] = useState(0);
   const [date, setDate] = useState("");
 
-  // Função que formata a data no formato "YYYY-MM-DD"
-  const getDataSelecionada = (data = startDate) => {
+  // Função para formatar a data no formato "DD/MM/YYYY"
+  const formatarData = (data = startDate) => {
     const novaData = new Date(data);
-    return `${novaData.getFullYear()}-${String(novaData.getMonth() + 1).padStart(2, '0')}-${String(novaData.getDate()).padStart(2, '0')}`;
+    const dia = String(novaData.getDate()).padStart(2, '0');
+    const mes = String(novaData.getMonth() + 1).padStart(2, '0');
+    const ano = novaData.getFullYear();
+    return `${dia}/${mes}/${ano}`;
   };
 
   // Efeito para carregar o userId e o nome do localStorage
@@ -29,33 +32,33 @@ function RelDia() {
     if (userIdFromStorage) setUserId(userIdFromStorage);
     if (nomeFromStorage) setNome(nomeFromStorage);
 
-    setDate(getDataSelecionada()); // Atualiza a data ao montar o componente
+    setDate(formatarData()); // Atualiza a data formatada ao montar o componente
   }, [startDate]);
 
   // Função que realiza a consulta de ponto
   const handleConsultaPonto = async () => {
-  setLoading(true);
-  setError("");
+    setLoading(true);
+    setError("");
 
-  const dataConsulta = getDataSelecionada();
+    const dataConsulta = formatarData(startDate);
 
-  try {
-    await consultaPonto(
-      userId,
-      dataConsulta,
-      setUltimatp_reg,
-      (result) => setConsulta(result || []), // Garante que sempre será um array, mesmo que vazio
-      setResumoHoras,
-      setLoading,
-      setError
-    );
-  } catch (error) {
-    setError(`Erro ao realizar a consulta: ${error.message}`);
-    setConsulta([]); // Garante que `consulta` seja um array vazio em caso de erro
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      await consultaPonto(
+        userId,
+        dataConsulta, // Passa a data formatada
+        setUltimatp_reg,
+        (result) => setConsulta(result || []), // Garante que sempre será um array, mesmo que vazio
+        setResumoHoras,
+        setLoading,
+        setError
+      );
+    } catch (error) {
+      setError(`Erro ao realizar a consulta: ${error.message}`);
+      setConsulta([]); // Garante que `consulta` seja um array vazio em caso de erro
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -70,7 +73,7 @@ function RelDia() {
           selected={startDate}
           onChange={(date) => {
             setStartDate(date);
-            setDate(getDataSelecionada(date)); // Atualiza a data informada diretamente
+            setDate(formatarData(date)); // Atualiza a data formatada ao selecionar
           }}
           dateFormat="dd/MM/yyyy"
         />
