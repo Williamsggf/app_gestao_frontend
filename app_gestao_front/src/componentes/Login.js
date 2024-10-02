@@ -66,6 +66,7 @@ function Login() {
           required
           value={cpf}
           onChange={handleCPFChange}
+          maxLength={14}
         />
         <input
           type="password"
