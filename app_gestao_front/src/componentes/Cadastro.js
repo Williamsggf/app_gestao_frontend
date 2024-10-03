@@ -131,7 +131,7 @@ function Cadastro() {
       console.error("Erro ao fazer cadastro:", error);
       setError(
         error.response?.data?.error ||
-          "Erro ao fazer cadastro. Verifique suas informações."
+        "Erro ao fazer cadastro. Verifique suas informações."
       );
     } finally {
       setLoading(false);
@@ -159,7 +159,7 @@ function Cadastro() {
           required
           value={nome}
           onChange={(e) => setNome(e.target.value)}
-          maxLength={30}
+          maxLength={25}
         />
         <input
           type="text"
@@ -168,7 +168,7 @@ function Cadastro() {
           required
           value={sobrenome}
           onChange={(e) => setSobrenome(e.target.value)}
-          maxLength={30}
+          maxLength={25}
         />
         <input
           type="text"
@@ -186,17 +186,9 @@ function Cadastro() {
           required
           value={email}
           onChange={handleEmailChange}
+          maxLength={30}
         />
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-
-        <input
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
         <input
           type="text"
           name="celular"
@@ -212,6 +204,7 @@ function Cadastro() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          maxLength={20}
         />
         <input
           type="password"
@@ -220,6 +213,7 @@ function Cadastro() {
           required
           value={passwordConfir}
           onChange={(e) => setPasswordConfir(e.target.value)}
+          maxLength={20}
         />
         <button type="submit" className="btn-login" disabled={loading}>
           {loading ? "Carregando..." : "Cadastrar"}
